@@ -7,6 +7,8 @@ config.term = "xterm-256color"
 config.font = wezterm.font("JetBrainsMono NF")
 config.color_scheme = "Catppuccin Mocha"
 config.hide_tab_bar_if_only_one_tab = true
+config.max_fps = 144
+config.animation_fps = 144
 
 local direction_keys = {
 	h = "Left",
