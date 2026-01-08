@@ -9,7 +9,7 @@ config.color_scheme = "Catppuccin Mocha"
 config.hide_tab_bar_if_only_one_tab = true
 
 -- 1. LEADER KEY (Ctrl + b)
-config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 
 -- 2. HELPER FUNCTIONS
 local function is_vim(pane)
