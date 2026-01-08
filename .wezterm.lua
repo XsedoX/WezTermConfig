@@ -4,17 +4,9 @@ local act = wezterm.action
 
 config.font_size = 10
 config.term = "xterm-256color"
-config.font = wezterm.font("JetBrains Mono")
+config.font = wezterm.font("JetBrainsMono NF")
 config.color_scheme = "Catppuccin Mocha"
 config.hide_tab_bar_if_only_one_tab = true
-
--- 1. LEADER KEY (Ctrl + b)
-config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
-
--- 2. HELPER FUNCTIONS
-local function is_vim(pane)
-	return pane:get_user_vars().IS_NVIM == "true"
-end
 
 local direction_keys = {
 	h = "Left",
@@ -26,6 +18,14 @@ local direction_keys = {
 	UpArrow = "Up",
 	RightArrow = "Right",
 }
+
+-- 1. LEADER KEY (Ctrl + b)
+config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
+
+-- 2. HELPER FUNCTIONS
+local function is_vim(pane)
+	return pane:get_user_vars().IS_NVIM == "true"
+end
 
 local function split_nav(resize_or_move, key)
 	return {
@@ -49,6 +49,32 @@ local function split_nav(resize_or_move, key)
 		end),
 	}
 end
+
+local function program_exists(name)
+	local success, _, _ = wezterm.run_child_process({ "where.exe", name })
+	return success
+end
+
+local function load_powershell_on_windows(configParam)
+	local windows_shells = { "pwsh.exe", "powershell.exe", "cmd.exe" }
+
+	if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+		for _, shell in ipairs(windows_shells) do
+			if program_exists(shell) then
+				configParam.default_prog = { shell }
+				break
+			end
+		end
+	end
+end
+
+load_powershell_on_windows(config)
+
+local mux = wezterm.mux
+wezterm.on("gui-startup", function(cmd)
+	local _, _, window = mux.spawn_window(cmd or {})
+	window:gui_window():maximize()
+end)
 
 -- 3. KEY BINDINGS
 config.keys = {
