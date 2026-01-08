@@ -4,6 +4,9 @@ local act = wezterm.action
 
 config.font_size = 10
 config.term = "xterm-256color"
+config.font = wezterm.font("JetBrains Mono")
+config.color_scheme = "Catppuccin Mocha"
+config.hide_tab_bar_if_only_one_tab = true
 
 -- 1. LEADER KEY (Ctrl + b)
 config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
@@ -61,11 +64,6 @@ config.keys = {
 	split_nav("resize", "UpArrow"),
 	split_nav("resize", "RightArrow"),
 
-	-- DIRECT ACTIONS (Your custom bindings preserved for quick access)
-	{ mods = "LEADER", key = "v", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ mods = "LEADER", key = "s", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ mods = "LEADER", key = "d", action = act.CloseCurrentPane({ confirm = true }) },
-
 	-- SUB-MENUS (Key Tables)
 	-- Leader + w (Window Mode)
 	{
@@ -73,7 +71,6 @@ config.keys = {
 		key = "w",
 		action = act.ActivateKeyTable({ name = "window_mode", one_shot = true }),
 	},
-	-- Leader + t (Tab Mode)
 	{
 		mods = "LEADER",
 		key = "Tab",
@@ -85,21 +82,13 @@ config.keys = {
 config.key_tables = {
 	window_mode = {
 		-- Uses your custom keys: v, s, d
-		{ key = "s", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-		{ key = "v", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+		{ key = "v", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "s", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "d", action = act.CloseCurrentPane({ confirm = true }) },
-
-		-- Resize Helpers inside the mode
-		{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
-		{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
-		{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 1 }) },
-
 		-- Exit
 		{ key = "Escape", action = "PopKeyTable" },
 		{ key = "Enter", action = "PopKeyTable" },
 	},
-
 	tab_mode = {
 		-- Uses 'd' for close, 'n' for new (standard)
 		{ key = "d", action = act.CloseCurrentTab({ confirm = true }) },
