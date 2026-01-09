@@ -11,8 +11,16 @@ config.max_fps = 30
 config.animation_fps = 1
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
-config.front_end = "WebGpu"
-config.webgpu_power_preference = "HighPerformance"
+for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+	if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
+		config.webgpu_preferred_adapter = gpu
+		config.front_end = "WebGpu"
+		config.webgpu_power_preference = "HighPerformance"
+		break
+	else
+		config.front_end = "Software"
+	end
+end
 
 local direction_keys = {
 	h = "Left",
