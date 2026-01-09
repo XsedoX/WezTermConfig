@@ -114,8 +114,8 @@ config.keys = {
 config.key_tables = {
 	window_mode = {
 		-- Uses your custom keys: v, s, d
-		{ key = "v", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-		{ key = "s", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+		{ key = "s", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "v", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "d", action = act.CloseCurrentPane({ confirm = true }) },
 		-- Exit
 		{ key = "Escape", action = "PopKeyTable" },
