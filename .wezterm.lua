@@ -11,6 +11,7 @@ config.max_fps = 30
 config.animation_fps = 1
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
+
 for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
 	if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
 		config.webgpu_preferred_adapter = gpu
@@ -125,6 +126,7 @@ config.key_tables = {
 		{ key = "s", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "v", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "d", action = act.CloseCurrentPane({ confirm = true }) },
+		{ key = "m", action = act.TogglePaneZoomState },
 		-- Exit
 		{ key = "Escape", action = "PopKeyTable" },
 		{ key = "Enter", action = "PopKeyTable" },
