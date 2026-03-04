@@ -42,15 +42,16 @@ local function is_vim(pane)
 	return pane:get_user_vars().IS_NVIM == "true"
 end
 
-local function split_nav(resize_or_move, key)
+local function split_nav(resize_or_move, key, mods)
+	mods = mods or "CTRL"
 	return {
 		key = key,
-		mods = "CTRL",
+		mods = mods,
 		action = wezterm.action_callback(function(win, pane)
 			if is_vim(pane) then
 				-- Pass keys to Vim
 				win:perform_action({
-					SendKey = { key = key, mods = "CTRL" },
+					SendKey = { key = key, mods = mods },
 				}, pane)
 			else
 				-- Handle in WezTerm
@@ -100,10 +101,10 @@ config.keys = {
 	split_nav("move", "l"),
 
 	-- SMART SPLITS (Resize)
-	split_nav("resize", "LeftArrow"),
-	split_nav("resize", "DownArrow"),
-	split_nav("resize", "UpArrow"),
-	split_nav("resize", "RightArrow"),
+	split_nav("resize", "LeftArrow", "ALT"),
+	split_nav("resize", "DownArrow", "ALT"),
+	split_nav("resize", "UpArrow", "ALT"),
+	split_nav("resize", "RightArrow", "ALT"),
 
 	-- SUB-MENUS (Key Tables)
 	-- Leader + w (Window Mode)
