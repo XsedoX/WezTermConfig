@@ -39,7 +39,15 @@ config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 
 -- 2. HELPER FUNCTIONS
 local function is_vim(pane)
-	return pane:get_user_vars().IS_NVIM == "true"
+	if pane:get_user_vars().IS_NVIM == "true" then return true end
+	
+	local process_name = pane:get_foreground_process_name()
+    local process_title = pane:get_title()
+  
+    if process_name and process_name:find('n?vim') then return true end
+    if process_title and process_title:find('n?vim') then return true end
+  
+    return false
 end
 
 local function split_nav(resize_or_move, key, mods)
