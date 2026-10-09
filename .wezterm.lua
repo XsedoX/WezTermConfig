@@ -6,7 +6,6 @@ config.font_size = 10
 config.term = "xterm-256color"
 config.font = wezterm.font("JetBrainsMono NF")
 config.color_scheme = "Catppuccin Mocha"
-config.hide_tab_bar_if_only_one_tab = true
 config.max_fps = 30
 config.animation_fps = 1
 config.cursor_blink_ease_in = "Constant"
